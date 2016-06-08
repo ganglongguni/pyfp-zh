@@ -30,3 +30,45 @@
 
 函数式编程的提倡者说，这些特性可用于提升开发效率，减少代码中的bug。而且，计算机科学、逻辑学和数学的理论家发现它比起命令式语言和程序更易于证明形式性质。函数式编程中一个至关重要的概念就是“纯函数”————给定相同参数就会产生相同结果的函数————它比命令式编程中的函数更接近数学上函数的意义。
 
+Python显然不是“纯函数式编程语言”；副作用在大多数Python程序中普遍存在。这是因为变量频繁被修改，可变数据集合也经常修改它们的内容，并且IO和计算也混在一起。通常来说，这甚至不是一种“函数式编程语言”。然而，Oython是多范式的语言，在设计时就易于函数式编程，并且易于和其它编程风格混用。
+
+## 在标准库之外
+
+大量的Python三方库都可用于函数式编程，由于篇幅原因它们不会在这里讨论。其中的一个例外是，我将会讨论Matthew Rocklin的`multipledispatch`，作为它所实现的概念的当前最佳实现。
+
+大多数用于函数式编程的三方库都是高阶函数的集合，有时他们是`itertools`中工具的增强版，用于以延迟的方式使用迭代器。下面是一些著名的例子，但是这个列表并不是很详细：
+
++ `pyrsistent`包含了大量的不可变集合。其数据结构上的所有方法都会返回一个含有所需更新的新副本，而不是修改它。原有的结构并没有改动。
+
++ `toolz`提供了一组用于迭代、函数和字典的实用函数。这些函数之间合理交互，并且形成常用数据分析操作的基础。它们扩展了标准库的`itertools`和`functools`，并且从现有的函数式语言的标准库中借鉴了很多东西。
+
++ `hypothesis`是一个用于创建单元测试的库，它可以寻找代码中你并没有想到的便捷情况。它通过生成符合你规格的随机数据和检测是否符合要求来工作。这通常叫做基于原型的测试，并且由Haskell的QuickCheck库推广。
+
++ `more_itertools`尝试收集了一些易用的迭代器工具集，它们不是`itertools`，也不是包含在其文档地址中的秘籍。这些工具集看似很难正确使用，并且这个精心构造的库帮助用户避免掉进它们的陷阱中。
+
+## 资源
+
+下面的大量的关于函数式编程的其它文献、文章和图书，它们讨论Python或其它语言。Python的官方文档包含了一个优秀的导论，叫做[“Functional Programming HOWTO”](https://docs.python.org/3.5/howto/functional.html)，由Andrew Kuchling编写。它讨论了函数式编程风格的一些冬季，以及Python的特色能力。
+
+Kuchling的导论中提到了一些非常古老的公共领域文章，写于2000年，这本书基于它一部分。这些包括：
+
++ 我的[Text Processing in Python](http://gnosis.cx/TPiP/)的第一章，在“在文本处理中使用高阶函数”一节，讨论了用于文本处理的函数式编程。
+
+我也写了几篇文章，Kuchling在IBM的developerWorks网站中提到过，讨论了在Python2.x的早期版本中使用函数式编程：
+
++ [可爱的 Python: Python中的函数式编程，第一部分](http://www.ibm.com/developerworks/linux/library/l-prog/index.html)
+
++ [可爱的 Python: Python中的函数式编程，第二部分](http://www.ibm.com/developerworks/linux/library/l-prog2/index.html)
+
++ [可爱的 Python: Python中的函数式编程，第三部分](http://www.oschina.net/translate/python-functional-programming-part3)
+
+> 译者注：这三篇文章的译文见最后一章。
+
+我在同一文集的另一篇文章中讨论了多分派，它没有Kuchling提到，并且同样用于Python的老版本。我所创建的实现比起更现代的`multipledispatch`库并没有什么优势，但是它提供了更详细的概念性解释：
+
++ [可爱的 Python: 多分派](http://www.ibm.com/developerworks/library/l-pydisp/)
+
+## 风格注解
+
+在大多数代码文本中，内联和块级代码使用同一种特定的字体，包括简单的命令和函数名称。在块级代码中，伪代码（不是有效的Python代码）的注解区域写为由尖括号包含的单词，例如`<code-block>`。其它情况下，语法有效但是没有定义的函数，使用描述性的名称，比如`get_the_data()`。
+
